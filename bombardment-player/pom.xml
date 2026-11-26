@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  EL VOSTRE JUGADOR.
+
+  Aquest projecte és independent (no hereta del superprojecte): és el que lliurareu enzipat.
+  Només depèn de bombardment-api. Per compilar-lo sol cal haver fet abans "mvn install" al superprojecte
+  (així l'API queda al vostre repositori Maven local).
+
+  Canvieu l'artifactId i el nom pel del vostre equip (p.ex. bombardment-player-equip07) i poseu les vostres
+  classes al paquet edu.upc.epsevg.prop.bombardment.player (o en un subpaquet).
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>edu.upc.epsevg.prop.bombardment</groupId>
+    <artifactId>bombardment-player</artifactId>
+    <version>1.0.0</version>
+    <packaging>jar</packaging>
+    <name>Bombardment - jugador de l'alumne</name>
+
+    <properties>
+        <maven.compiler.release>17</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Classe del vostre jugador principal (la que es farà servir als challenges i al torneig). -->
+        <player.class>edu.upc.epsevg.prop.bombardment.player.MyPlayer</player.class>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>edu.upc.epsevg.prop.bombardment</groupId>
+            <artifactId>bombardment-api</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.10.2</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <!-- El motor llegeix aquest atribut per saber quin és el vostre jugador. -->
+                            <Bombardment-Player>${player.class}</Bombardment-Player>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+            </plugin>
+        </plugins>
+    </build>
+</project>

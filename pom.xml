@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Superprojecte (agregador) PÚBLIC de la pràctica Bombardment.
+
+  - bombardment-api     : model del joc, interfícies (IPlayer, GameStatus, Move...) i motor d'execució de partides
+                          (cada jugador en una JVM pròpia, challenges, obertures).
+  - bombardment-player  : EL JUGADOR DE L'ALUMNE. Projecte Maven independent: NO hereta d'aquest pom,
+                          només hi està agregat, perquè s'ha de poder compilar sol quan es lliura en un zip.
+  - bombardment-ui      : interfície gràfica (Swing).
+  - bombardment-bench   : bancs de proves: correcció de la cerca, temps, challenges.
+
+  El jugador del professor de nivell 1 es distribueix compilat a lib/repo.
+  Ús: mvn install   (des d'aquesta carpeta), després scripts/ui.(sh|bat), scripts/challenge.(sh|bat)...
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>edu.upc.epsevg.prop.bombardment</groupId>
+    <artifactId>bombardment-parent</artifactId>
+    <version>1.0.0</version>
+    <packaging>pom</packaging>
+    <name>Bombardment - superprojecte</name>
+
+    <modules>
+        <module>bombardment-api</module>
+        <module>bombardment-player</module>
+        <module>bombardment-ui</module>
+        <module>bombardment-bench</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.release>17</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.version>5.10.2</junit.version>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>edu.upc.epsevg.prop.bombardment</groupId>
+                <artifactId>bombardment-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>edu.upc.epsevg.prop.bombardment</groupId>
+                <artifactId>bombardment-profe1</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>edu.upc.epsevg.prop.bombardment</groupId>
+                <artifactId>bombardment-ui</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>edu.upc.epsevg.prop.bombardment</groupId>
+                <artifactId>bombardment-bench</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>edu.upc.epsevg.prop.bombardment</groupId>
+                <artifactId>bombardment-player</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.junit.jupiter</groupId>
+                <artifactId>junit-jupiter</artifactId>
+                <version>${junit.version}</version>
+                <scope>test</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-dependency-plugin</artifactId>
+                    <version>3.6.1</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.codehaus.mojo</groupId>
+                    <artifactId>exec-maven-plugin</artifactId>
+                    <version>3.2.0</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.2.5</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>

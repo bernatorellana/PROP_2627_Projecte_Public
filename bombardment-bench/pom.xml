@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>edu.upc.epsevg.prop.bombardment</groupId>
+        <artifactId>bombardment-parent</artifactId>
+        <version>1.0.0</version>
+    </parent>
+    <artifactId>bombardment-bench</artifactId>
+    <name>Bombardment - bancs de proves</name>
+
+    <properties>
+        <exec.mainClass>edu.upc.epsevg.prop.bombardment.bench.Challenge</exec.mainClass>
+    </properties>
+
+    <repositories>
+        <!-- Jugador del professor de nivell 1 (compilat), inclòs al projecte -->
+        <repository>
+            <id>bombardment-lib</id>
+            <url>file://${project.basedir}/../lib/repo</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>edu.upc.epsevg.prop.bombardment</groupId>
+            <artifactId>bombardment-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>edu.upc.epsevg.prop.bombardment</groupId>
+            <artifactId>bombardment-profe1</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>edu.upc.epsevg.prop.bombardment</groupId>
+            <artifactId>bombardment-player</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- Copia les dependències a target/lib perquè els scripts puguin executar amb java -cp -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-libs</id>
+                        <phase>package</phase>
+                        <goals><goal>copy-dependencies</goal></goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
+                            <includeScope>runtime</includeScope>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>
